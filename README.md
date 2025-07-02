@@ -65,7 +65,29 @@ PUSHBULLET_API_KEY = 'oxitia1rcn2cvecanoha'
 ```
 
 ### 🧪 Run Examples
-**Coming soon**
+```bash
+# auto craft adventurer garb
+from module.core.cursor import switch_to_toram
+from module.smith.craft import auto_craft_and_proc_adv
+
+switch_to_toram()
+auto_craft_and_proc_adv()
+
+# auto fill
+from module.smith.fill import auto_fill
+
+switch_to_toram()
+auto_fill('./fill_order.txt')
+
+# refining
+# remember to manually equip the gear before running this code
+from module.smith.refine import luck_refine, smart_refine
+
+switch_to_toram()
+luck_refine() # only using LUK char
+
+smart_refine() # using both LUK and TEC char
+```
  
 ## 💡 Usage Tips
 - To achieve optimal results, you must run the game in **1600x900** resolution
