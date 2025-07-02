@@ -83,10 +83,10 @@ auto_fill('./fill_order.txt')
 # remember to manually equip the gear before running this code
 from module.smith.refine import luck_refine, smart_refine
 
-# by default you should put TEC char in the first position and LUK in the second position of your character list
 switch_to_toram()
 luck_refine() # only using LUK char
 
+# by default you should put TEC char in the first position and LUK in the second position of your character list
 smart_refine() # using both LUK and TEC char
 ```
  
