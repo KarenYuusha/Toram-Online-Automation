@@ -1,0 +1,16 @@
+Critical Damage% Lv.11,Critical Damage Lv.23,Critical Rate Lv.30,% Stronger Against Dark Lv.23
+PhysicalPierce % Lv.-9,ATK% Lv.-15,Accuracy % Lv.-6,Accuracy Lv.-16
+Mat cost pt (33% reduction by PROF LV)
+(Compassion Lv Metal:10%,Cloth:10%,Beast:10%,Wood:10%,Medi:10%,Mana:10%)
+Metal:0pt,Cloth:0pt,Beast:54,561pt,Wood:0pt,Medicine:50,582pt,Mana:151,943pt
+(Highest mats per step: 114,283 pt)
+Success Rate:100% Steps(Original Potential：108pt)
+1. Add Critical Damage% Lv.5 at once.（Remaining Pot：58pt)
+
+2. Add Critical Damage Lv.19 one by one.（Remaining Pot：1pt)
+
+3. Add Critical Rate Lv.1, PhysicalPierce % Lv.-9, ATK% Lv.-15, Accuracy % Lv.-6, Accuracy Lv.-16 at once.（Remaining Pot：567pt)
+
+4. Add Critical Rate Lv.22 one by one.（Remaining Pot：542pt)
+
+5. Add Critical Damage% Lv.11, Critical Damage Lv.23, Critical Rate Lv.30, % Stronger Against Dark Lv.23 at once.（Remaining Pot：-136pt)
