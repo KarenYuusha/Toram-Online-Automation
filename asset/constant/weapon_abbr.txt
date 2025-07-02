@@ -1,0 +1,10 @@
+ohs, one hand,one handed sword,ohs,1h:one-handed
+two handed,two handed sword,ths,2h:two-handed
+bow: bow
+bg,bowgun:bowgun
+stf,staff:staff
+magic device, md:magic device
+knuckle:knuckle
+halberd,hb:halberd
+katana,ktn:katana
+armor,arm:body armor
