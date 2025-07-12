@@ -207,7 +207,7 @@ def image_matching(image1, image2, hash_size=8, tolerance=10, remove_bg=False) -
     return hash1 - hash2 <= tolerance
 
 def img_is_visible(image_path, left=0, top=0, right=100, 
-                   bottom=100, confidence=0.7) -> bool:
+                   bottom=100,verbose=False, confidence=0.7) -> bool:
     """
     Check if the image is visible on the screen
     Args:
@@ -227,7 +227,8 @@ def img_is_visible(image_path, left=0, top=0, right=100,
         gui.locateOnScreen(image_path, confidence=confidence, region=(left, top, width, height))
         return True
     except:
-        print(f"Cannot find {image_path} on screen in region ({left}, {top}, {right}, {bottom}) with confidence {confidence}.")
+        if verbose:
+            print(f"Cannot find {image_path} on screen in region ({left}, {top}, {right}, {bottom}) with confidence {confidence}.")
         return False
 
 def get_img_coordinate(image_path, left=0, top=0, right=100, 
