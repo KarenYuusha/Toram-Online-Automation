@@ -4,7 +4,7 @@ import random
 from asset.constant.config import ANNIHILATOR, ASURA
 
 from ..core.battle import boss_is_dead, player_is_dead, reviving
-from ..core.cursor import click_relative, key_press, key_press_and_release, key_press_and_release_backup
+from ..core.cursor import click_relative, key_press, key_press_and_release
 from ..core.graphic import click_with_picture, img_is_visible
 from ..core.menu_nav import check_stamp_card
 from ..core.menu_nav import is_main_screen
