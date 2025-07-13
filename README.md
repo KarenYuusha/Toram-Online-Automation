@@ -9,6 +9,8 @@ A python-based automation tool for MMORPG Toram Online. This project aim to auto
 
 **Auto fill** - Auto customize the equipment base on the formula from [tanaka0](https://tanaka0.work/en/BouguProper#output)
 
+**Auto 2nd anniv** - Auto battle in the 2nd anniv venue
+
 **Other miscellaneous function**
 
 ## 📌 TODO
