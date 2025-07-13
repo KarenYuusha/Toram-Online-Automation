@@ -133,6 +133,9 @@ def battle() -> None:
     while not is_main_screen():
         sleep(0.5)
         count += 1
+        if img_is_visible('asset/images/anniv/quest_reward.png'):
+            click_relative(50, 86)
+            count = 0 
         if count > 50:
             check_stamp_card()
             count = 0
