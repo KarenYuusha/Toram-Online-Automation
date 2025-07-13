@@ -118,3 +118,8 @@ def switch_char(char_id=1, fast_mode=False) -> None:
     if not fast_mode:
         while not is_main_screen():
             sleep(0.5)
+
+def check_stamp_card() -> None:
+    if img_is_visible('asset/images/misc/close_stamp_card.png'):
+        click_relative(50, 91)
+        sleep(0.5)
