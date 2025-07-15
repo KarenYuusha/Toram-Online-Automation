@@ -130,7 +130,7 @@ def click_cat(cat) -> None:
     Args:
         cat (str): category of stats
     """
-    img_path = f'./asset/images/fill/{map_to_general(cat)}.png'
+    img_path = f'asset/images/fill/{map_to_general(cat)}.png'
     # the stat is not in the upper half
     while not img_is_visible(img_path, 62, 15, 90, 97):
         swipe((55, 93), (55, 17))
@@ -240,7 +240,8 @@ def confirm_stat(is_final=False) -> None:
     click_relative(51, 78) # complete
     
 def filling_stat(step_type: str, raw_stat: str, stat: str, stat_type: str,
-                 stat_lvl: int, delay: float = 0, cache: dict = None) -> None:
+                 stat_lvl: int, delay: float = 0,
+                 sorted_stat=None, cache: dict = None) -> None:
     """
     Fill a stat with a specified level adjustment, using various step types.
     
@@ -258,7 +259,7 @@ def filling_stat(step_type: str, raw_stat: str, stat: str, stat_type: str,
     
     def process_stat() -> None:
         """Perform actions to select and click the correct stat."""
-        select_slot(raw_stat)
+        select_slot(raw_stat, sorted_stat)
         sleep(0.4)
         click_cat(raw_stat)
         sleep(1)
@@ -272,13 +273,12 @@ def filling_stat(step_type: str, raw_stat: str, stat: str, stat_type: str,
         stat_lvl -= cache[stat]
         if stat_lvl <= 0:
             raise ValueError(f"Stat '{stat}' already filled to the required level.")
-    
+    flag = False
     # process based on step type
     if step_type == 'once':
         process_stat()
         increment_stat_level(stat_lvl, delay=delay)
     elif step_type == 'one':
-        flag = False
         for i in range(stat_lvl):
             if i == 1 and stat not in cache:
                 cache[stat] = cache.get(stat, 0) + 1
@@ -367,7 +367,7 @@ def auto_fill(formula_path, custom_order=None, check_mat=False):
             fill_stat = format_text(fill_stat)
 
             filling_stat(click_type, raw_stat, fill_stat, stat_type, 
-                         fill_stat_lv, cache=cache)
+                         fill_stat_lv, sorted_stat=sorted_stat, cache=cache)
             sleep(0.5)
 
         # check if this is the last step
