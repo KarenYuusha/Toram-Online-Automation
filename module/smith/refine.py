@@ -106,14 +106,14 @@ def smart_refine(show_result=True) -> None:
         count += 1
         
         if current_grade >= 12 and current_role != "LUCK":
-            switch_char(LUCK_ID, fast_mode=True)
+            switch_char(LUCK_ID)
             current_role = "LUCK"
 
             init_refine()
             sleep(5)
 
         elif current_grade < 12 and current_role != "TEC":
-            switch_char(TEC_ID, fast_mode=True)
+            switch_char(TEC_ID)
             current_role = "TEC"
             
             init_refine()
