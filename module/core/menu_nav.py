@@ -90,12 +90,11 @@ def main_to_eq() -> None:
     while not img_is_visible('asset\images\smith\combat.png'):
         sleep(0.5)
 
-def switch_char(char_id=1, fast_mode=False) -> None:
+def switch_char(char_id=1) -> None:
     """
     Switch to a character based on the given ID.
     ID start from 0.
     For now only support the first 5 characters.
-    Avoid using fast_mode in slow loading maps, ex: your land.
     """
     
     char_id = min(4, max(0, char_id))
@@ -113,11 +112,8 @@ def switch_char(char_id=1, fast_mode=False) -> None:
     click_relative(20, 90) # switch
     sleep(7)
 
-    # Wait until the main screen is loaded
-    # You can remove this if you want to switch character faster
-    if not fast_mode:
-        while not is_main_screen():
-            sleep(0.5)
+    while not is_main_screen():
+        sleep(0.1)
 
 def check_stamp_card() -> None:
     if img_is_visible('asset/images/misc/close_stamp_card.png'):
