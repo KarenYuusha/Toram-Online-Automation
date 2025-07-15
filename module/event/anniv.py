@@ -61,12 +61,11 @@ def battle() -> None:
     
     # loading to game
         while not img_is_visible('asset/images/anniv/crystal.png'):
-            sleep(1)
+            sleep(0.5)
     reward_img_path = 'asset/images/anniv/quest_reward.png'
-    defeated_boss = 0
     
     while not is_main_screen():
-        sleep(0.5)
+        sleep(0.3)
     
     # go near the crystal
     key_press_and_release('w', 4)
@@ -111,7 +110,7 @@ def battle() -> None:
             click_relative(75, 18)
             
             count  += 1
-            
+                
             if count == 30:
                 for _ in range(4):
                     random_key_press()
@@ -121,10 +120,11 @@ def battle() -> None:
                         break
             if flag:
                 break
-        defeated_boss += 1
     for _ in range(3):
         key_press('esc')
-    sleep(0.5)
+        sleep(0.1)
+    sleep(0.3)
+    
     if img_is_visible('asset/images/anniv/quest_reward.png'):
         click_relative(50, 86)
         click_relative(50, 86)
@@ -135,6 +135,10 @@ def battle() -> None:
         count += 1
         if img_is_visible('asset/images/anniv/quest_reward.png'):
             click_relative(50, 86)
+            count = 0 
+        if count > 50:
+            check_stamp_card()
+            count = 0
             count = 0 
         if count > 50:
             check_stamp_card()
