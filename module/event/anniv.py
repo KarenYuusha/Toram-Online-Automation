@@ -60,8 +60,8 @@ def battle() -> None:
         key_press_and_release(key, duration)
     
     # loading to game
-        while not img_is_visible_grayscale('asset/images/anniv/crystal.png'):
-            sleep(0.5)
+        while not img_is_visible('asset/images/anniv/crystal.png'):
+            sleep(1)
     reward_img_path = 'asset/images/anniv/quest_reward.png'
     
     while not is_main_screen():
@@ -121,18 +121,11 @@ def battle() -> None:
                         break
             if flag:
                 break
-        
-        key_press('tab')
-        key_press('tab')
-        click_relative(75, 18)
-        click_relative(75, 18)
-        
+        defeated_boss += 1
     for _ in range(3):
         key_press('esc')
-        sleep(0.1)
-    sleep(0.3)
-    
-    if img_is_visible_grayscale('asset/images/anniv/quest_reward.png'):
+    sleep(0.5)
+    if img_is_visible('asset/images/anniv/quest_reward.png'):
         click_relative(50, 86)
         click_relative(50, 86)
     
@@ -142,6 +135,10 @@ def battle() -> None:
         count += 1
         if img_is_visible_grayscale('asset/images/anniv/quest_reward.png'):
             click_relative(50, 86)
+            count = 0 
+        if count > 50:
+            check_stamp_card()
+            count = 0
             count = 0 
         if count > 50:
             check_stamp_card()
