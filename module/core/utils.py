@@ -24,11 +24,12 @@ def get_abbreviation(term, file_path):
     abbreviation_map = load_abbreviations(file_path)
     return abbreviation_map.get(term.lower())
 
-def find_closest_match(input_text, correct_names):
+def find_closest_match(input_text, correct_names, verbose=False):
     # Get the closest match from the list
     closest_matches = get_close_matches(input_text, correct_names, n=1, cutoff=0.6)
     if closest_matches:
         return closest_matches[0]
     else:
-        print(f"No close match found for: {input_text}")
+        if verbose:
+            print(f"No close match found for: {input_text}")
         return input_text
