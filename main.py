@@ -4,7 +4,7 @@ from time import sleep
 from tqdm import trange
 
 switch_to_toram('normal')
-for _ in trange(1000):
+for _ in trange(100):
     to_battle()
     battle()
-    sleep(2)
+    sleep(1)

@@ -5,7 +5,7 @@ from asset.constant.config import ANNIHILATOR, ASURA
 
 from ..core.battle import boss_is_dead, player_is_dead, reviving
 from ..core.cursor import click_relative, key_press, key_press_and_release
-from ..core.graphic import click_with_picture, img_is_visible
+from ..core.graphic import click_with_picture, img_is_visible, img_is_visible_grayscale
 from ..core.menu_nav import check_stamp_card
 from ..core.menu_nav import is_main_screen
 from ..core.menu_nav import check_stamp_card
@@ -17,12 +17,12 @@ keys = ['w', 'a', 's', 'd']
 def to_battle() -> None:
     check_stamp_card()
     
-    while not img_is_visible('asset/images/anniv/arena_entry.png'):
-        while not img_is_visible('asset/images/battle/target_list.png'):
+    while not img_is_visible_grayscale('asset/images/anniv/arena_entry.png'):
+        while not img_is_visible_grayscale('asset/images/battle/target_list.png'):
             key_press('tab')
             sleep(0.4)
         
-            if img_is_visible('asset/images/anniv/arena_entry.png'):
+            if img_is_visible_grayscale('asset/images/anniv/arena_entry.png'):
                 break
             
         # ex arena entry
@@ -31,12 +31,12 @@ def to_battle() -> None:
         sleep(1)
     
     click_relative(49, 45) # ex arena entry
-    sleep(0.5)
+    sleep(0.4)
     
     key_press('esc')
     
-    while not img_is_visible('asset/images/anniv/im_ready.png'):
-        sleep(0.5)
+    while not img_is_visible_grayscale('asset/images/anniv/im_ready.png'):
+        sleep(0.3)
     
     click_relative(76, 83) # im ready
 
@@ -60,22 +60,23 @@ def battle() -> None:
         key_press_and_release(key, duration)
     
     # loading to game
-        while not img_is_visible('asset/images/anniv/crystal.png'):
-            sleep(1)
+        while not img_is_visible_grayscale('asset/images/anniv/crystal.png'):
+            sleep(0.5)
     reward_img_path = 'asset/images/anniv/quest_reward.png'
-    defeated_boss = 0
     
     while not is_main_screen():
-        sleep(0.5)
+        sleep(0.3)
     
     # go near the crystal
-    key_press_and_release('w', 4)
+    key_press_and_release('w', 3)
+    key_press_and_release('d', 2.8)
     # key_press_and_release_backup('w', 4) in case the above does not work
     
     key_press('f')
     starter_combo()
     dead = False
     
+    sleep(0.2)
     key_press('tab')
     
     while is_main_screen():
@@ -91,14 +92,13 @@ def battle() -> None:
             dead = False
             key_press('tab')
             
-        while boss_is_dead():
-            # finish the battle
-            if not is_main_screen():
-                break
+        # while boss_is_dead():
+        #     # finish the battle
+        #     if not is_main_screen():
+        #         break
             
-            key_press('tab')
-            key_press('tab')
-            sleep(0.1)
+        #     key_press('tab')
+        #     key_press('tab')
         
         click_relative(75, 18) # click the boss
         click_relative(75, 18)
@@ -111,7 +111,7 @@ def battle() -> None:
             click_relative(75, 18)
             
             count  += 1
-            
+                
             if count == 30:
                 for _ in range(4):
                     random_key_press()
@@ -121,11 +121,18 @@ def battle() -> None:
                         break
             if flag:
                 break
-        defeated_boss += 1
+        
+        key_press('tab')
+        key_press('tab')
+        click_relative(75, 18)
+        click_relative(75, 18)
+        
     for _ in range(3):
         key_press('esc')
-    sleep(0.5)
-    if img_is_visible('asset/images/anniv/quest_reward.png'):
+        sleep(0.1)
+    sleep(0.3)
+    
+    if img_is_visible_grayscale('asset/images/anniv/quest_reward.png'):
         click_relative(50, 86)
         click_relative(50, 86)
     
@@ -133,7 +140,7 @@ def battle() -> None:
     while not is_main_screen():
         sleep(0.5)
         count += 1
-        if img_is_visible('asset/images/anniv/quest_reward.png'):
+        if img_is_visible_grayscale('asset/images/anniv/quest_reward.png'):
             click_relative(50, 86)
             count = 0 
         if count > 50:

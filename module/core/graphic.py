@@ -231,6 +231,28 @@ def img_is_visible(image_path, left=0, top=0, right=100,
             print(f"Cannot find {image_path} on screen in region ({left}, {top}, {right}, {bottom}) with confidence {confidence}.")
         return False
 
+def img_is_visible_grayscale(image_path, left=0, top=0, right=100, bottom=100,
+                   verbose=False, confidence=0.7) -> bool:
+    left, top = convert_to_absolute(left, top)
+    right, bottom = convert_to_absolute(right, bottom)
+    width = right - left
+    height = bottom - top
+    
+    screen = gui.screenshot(region=(left, top, width, height))
+    screen_np = np.array(screen.convert('RGB'))
+    screen_gray = cv2.cvtColor(screen_np, cv2.COLOR_RGB2GRAY)
+    
+    template = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    result = cv2.matchTemplate(screen_gray, template, cv2.TM_CCOEFF_NORMED)
+    loc = np.where(result >= confidence)
+
+    if len(loc[0]) > 0:
+        return True
+    else:
+        if verbose:
+            print(f"Cannot find {image_path} in region ({left},{top},{right},{bottom}) with confidence {confidence}")
+        return False
+
 def get_img_coordinate(image_path, left=0, top=0, right=100, 
                        bottom=100, confidence=0.7, 
                        silence=False) -> Optional[Tuple[int, int]]:
