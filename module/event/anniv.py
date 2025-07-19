@@ -68,37 +68,33 @@ def battle() -> None:
         sleep(0.3)
     
     # go near the crystal
-    key_press_and_release('w', 3)
-    key_press_and_release('d', 2.8)
-    # key_press_and_release_backup('w', 4) in case the above does not work
+    key_press_and_release('w', 4)
+    key_press_and_release('d', 1.8)
     
     key_press('f')
     starter_combo()
     dead = False
     
-    sleep(0.2)
+    sleep(0.1)
     key_press('tab')
     
     while is_main_screen():
         count = 0
         # check if player is dead
-        if player_is_dead():
-            reviving()
-            key_press('f')
-            dead = True
+        # if player_is_dead():
+        #     reviving()
+        #     key_press('f')
+        #     dead = True
 
-        if dead:
-            starter_combo()
-            dead = False
-            key_press('tab')
+        # if dead:
+        #     starter_combo()
+        #     dead = False
+        #     key_press('tab')
             
         # while boss_is_dead():
         #     # finish the battle
         #     if not is_main_screen():
         #         break
-            
-        #     key_press('tab')
-        #     key_press('tab')
         
         click_relative(75, 18) # click the boss
         click_relative(75, 18)
@@ -122,9 +118,16 @@ def battle() -> None:
             if flag:
                 break
         defeated_boss += 1
+        
+        key_press('tab')
+        key_press('tab')
+        click_relative(75, 18)
+        click_relative(75, 18)
+        
     for _ in range(3):
         key_press('esc')
-    sleep(0.5)
+        
+    sleep(0.4)
     if img_is_visible('asset/images/anniv/quest_reward.png'):
         click_relative(50, 86)
         click_relative(50, 86)
@@ -139,7 +142,6 @@ def battle() -> None:
         if count > 50:
             check_stamp_card()
             count = 0
-            count = 0 
         if count > 50:
             check_stamp_card()
             count = 0
