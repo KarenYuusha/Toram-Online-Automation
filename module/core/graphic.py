@@ -233,6 +233,10 @@ def img_is_visible(image_path, left=0, top=0, right=100,
 
 def img_is_visible_grayscale(image_path, left=0, top=0, right=100, bottom=100,
                    verbose=False, confidence=0.7) -> bool:
+    """
+    The function is similar to the function above, but code manually
+    and uses preprocessing 
+    """
     left, top = convert_to_absolute(left, top)
     right, bottom = convert_to_absolute(right, bottom)
     width = right - left
