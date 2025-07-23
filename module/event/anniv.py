@@ -117,7 +117,6 @@ def battle() -> None:
                         break
             if flag:
                 break
-        defeated_boss += 1
         
         key_press('tab')
         key_press('tab')
