@@ -14,7 +14,7 @@ EQ_COORDINATE = [
     (89, 37, 97.5, 41),
 ]
 
-# deposit 
+# deposit
 DEPOSIT_POS = (
     (41, 27),
     (41, 50),
@@ -63,5 +63,5 @@ STAT_ORDER = {
 # item name
 ITEM_NAME = [
     'bird wing', 'orichalcum', 'orchalcum ore', 'mithril', 'mithril ore',
-    'summer shell II', 'summer shell'
+    'summer shell II', 'summer shell', 'thick beak'
 ]
