@@ -1,5 +1,5 @@
 import re
-from time import sleep
+from time import sleep, time
 
 from asset.constant.config import ABILITY_SLOT_X, ABILITY_SLOT_Y, MAT_POINT
 
@@ -167,7 +167,11 @@ class AutoFill:
         """
         img_path = f'asset/images/fill/{map_to_general(cat)}.png'
         # the stat is not in the upper half
+        start_time = time()
         while not img_is_visible(img_path, 62, 15, 90, 97):
+            if time() - start_time > 10:
+                raise FileNotFoundError(
+                    f"Image {img_path} not found in the fill menu.")
             swipe((55, 93), (55, 17))
             sleep(1)
         else:
@@ -247,7 +251,7 @@ class AutoFill:
         # Confirm the action
         click_relative(25, 88)
 
-    def confirm_stat(is_final=False) -> None:
+    def confirm_stat(self, is_final=False) -> None:
         click_relative(25, 92)  # start
         sleep(0.2)
         click_relative(49, 92)  # start
@@ -293,7 +297,7 @@ class AutoFill:
         # process based on step type
         if step_type == 'once':
             process_stat()
-            self.increment_stat_level(stat_lvl, delay=delay)
+            self.change_stat_level(stat_lvl, delay=delay)
         elif step_type == 'one':
             for i in range(stat_lvl):
                 if i == 1 and stat not in self.cache:
@@ -301,7 +305,7 @@ class AutoFill:
                     flag = True
 
                 process_stat()
-                self.increment_stat_level(1, delay=delay)
+                self.change_stat_level(1, delay=delay)
 
                 if i < stat_lvl - 1:
                     self.confirm_stat(is_final=False)
@@ -383,6 +387,7 @@ class AutoFill:
                 self.filling_stat(click_type, raw_stat, fill_stat, stat_type,
                                   fill_stat_lv, sorted_stat=sorted_stat, cache=self.cache)
                 sleep(0.5)
+                self.lower_half = False
 
             # check if this is the last step
             self.confirm_stat(is_final=(idx == len(formula) - 1))

@@ -11,6 +11,7 @@ from .cursor import convert_to_relative
 coordinate_list = []
 mouse_listener = None
 
+
 def on_click(x, y, button, pressed, relative=True) -> bool:
     """
     Handle mouse click events.
@@ -30,6 +31,7 @@ def on_click(x, y, button, pressed, relative=True) -> bool:
         coordinate_list.append((x, y))
         print(f"Left click detected at ({x}, {y})")
 
+
 def on_key_press(key) -> bool:
     """
     Handle key press events to stop the listeners when 'q' is pressed.
@@ -45,6 +47,7 @@ def on_key_press(key) -> bool:
         mouse_listener.stop()  # Explicitly stop the mouse listener
         return False  # Stop the keyboard listener
 
+
 def start_mouse_listener(relative=True) -> None:
     """
     Start the mouse listener to track mouse click events.
@@ -53,9 +56,11 @@ def start_mouse_listener(relative=True) -> None:
         Relative (bool): Whether to convert coordinates to relative.
     """
     global mouse_listener
-    mouse_listener = MouseListener(on_click=lambda x, y, button, pressed: on_click(x, y, button, pressed, relative=relative))
+    mouse_listener = MouseListener(on_click=lambda x, y, button, pressed: on_click(
+        x, y, button, pressed, relative=relative))
     mouse_listener.start()
     mouse_listener.join()
+
 
 def start_keyboard_listener() -> None:
     """
@@ -63,6 +68,7 @@ def start_keyboard_listener() -> None:
     """
     with KeyboardListener(on_press=on_key_press) as listener:
         listener.join()
+
 
 def save_coordinates_to_file(coordinates, filename) -> None:
     """
@@ -76,7 +82,8 @@ def save_coordinates_to_file(coordinates, filename) -> None:
         for coord in coordinates:
             file.write(f"{coord[0]}, {coord[1]}\n")
 
-def start_record_coordinates(filename: str='a.txt', relative: bool=False) -> None:
+
+def start_record_coordinates(filename: str = 'a.txt', relative: bool = False) -> None:
     """
     Start recording cursor coordinates and save them to a file.
     Press 'q' to stop recording.
@@ -106,7 +113,8 @@ def start_record_coordinates(filename: str='a.txt', relative: bool=False) -> Non
 
     save_coordinates_to_file(coordinate_list, filename)
 
-def read_coordinates_from_file(filename = 'a.txt') -> List[Tuple[float, float]]:
+
+def read_coordinates_from_file(filename='a.txt') -> List[Tuple[float, float]]:
     """
     Read coordinates from a file.
 
@@ -117,10 +125,10 @@ def read_coordinates_from_file(filename = 'a.txt') -> List[Tuple[float, float]]:
         List[Tuple[float, float]]: The list of coordinates read from the file.
     """
     coordinates: List[Tuple[float, float]] = []
-    
+
     with open(filename, 'r') as file:
         for line in file:
             x, y = map(float, line.strip().split(','))
             coordinates.append((x, y))
-            
+
     return coordinates
