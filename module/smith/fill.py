@@ -4,7 +4,7 @@ from time import sleep, time
 from asset.constant.config import ABILITY_SLOT_X, ABILITY_SLOT_Y, MAT_POINT
 
 from ..core.cursor import click_relative, key_press, swipe
-from ..core.graphic import click_with_picture, img_is_visible, tesseract_ocr
+from ..core.graphic import click_with_image, img_is_visible, tesseract_ocr
 from ..core.menu_nav import main_to_fill, to_main
 
 
@@ -175,7 +175,7 @@ class AutoFill:
             swipe((55, 93), (55, 17))
             sleep(1)
         else:
-            click_with_picture(img_path)
+            click_with_image(img_path)
 
     def click_stat(self, cat, stat, tolerance=4) -> None:
         """
@@ -209,7 +209,7 @@ class AutoFill:
 
         # click the stat only if not in cache
         if stat not in self.cache:
-            click_with_picture(image_path, *bbox, confidence=confidence)
+            click_with_image(image_path, *bbox, confidence=confidence)
 
     def select_slot(self, stat, sorted_stat) -> None:
         """

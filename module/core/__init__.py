@@ -11,7 +11,7 @@ def start_toram() -> None:
     Open the Toram Online game.
     """
     load_dotenv(dotenv_path)
-    
+
     toram_path = os.getenv('TORAM_PATH')
     try:
         subprocess.Popen(toram_path, shell=True)
@@ -20,6 +20,7 @@ def start_toram() -> None:
     except Exception as e:
         print(f"An error occurred: {e}")
     sleep(30)
+
 
 version = '0.1.0'
 

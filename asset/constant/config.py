@@ -63,5 +63,5 @@ STAT_ORDER = {
 # item name
 ITEM_NAME = [
     'bird wing', 'orichalcum', 'orchalcum ore', 'mithril', 'mithril ore',
-    'summer shell II', 'summer shell', 'thick beak'
+    'summer shell 11', 'summer shell', 'thick beak'
 ]
