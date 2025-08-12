@@ -182,7 +182,9 @@ def image_matching(image1, image2, hash_size=8, tolerance=10, remove_bg=False) -
     Returns:
         bool: True if the images are similar, False otherwise.
     """
+    import imagehash
     # Function to remove background if specified
+
     def remove_background(image):
         if isinstance(image, Image.Image):
             # Convert the image to bytes for rembg
@@ -203,7 +205,6 @@ def image_matching(image1, image2, hash_size=8, tolerance=10, remove_bg=False) -
     if remove_bg:
         import io
 
-        import imagehash
         from rembg import remove
         image1 = remove_background(image1)
         image2 = remove_background(image2)
@@ -386,11 +387,16 @@ def click_with_image(image_path, left=0, top=0, right=100, bottom=100,
     return False
 
 
-def waiting_for_image(img_path, sleep_time=0.1, time_out=3, on_wait=None) -> bool:
+def waiting_for_image(img_path, left=0, top=0, right=100, bottom=100,
+                      sleep_time=0.1, time_out=3, on_wait=None, strict=False) -> bool:
     start_time = time()
-    while not img_is_visible(img_path):
-        if start_time > time_out:
-            return False
+    while not img_is_visible(img_path, left, top, right, bottom):
+        if time() - start_time > time_out:
+            if strict:
+                raise TimeoutError(
+                    f"Image {img_path} not found after {time_out} seconds.")
+            else:
+                return False
 
         if callable(on_wait):
             on_wait()

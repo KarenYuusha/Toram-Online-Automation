@@ -20,9 +20,9 @@ def to_main() -> None:
     """
     Navigate to main menu
     """
-    if not is_main_screen():
+    while not is_main_screen():
         key_press('ESC')
-        sleep(0.5)
+        sleep(0.3)
 
 
 def main_to_smith() -> None:
