@@ -103,7 +103,7 @@ def find_usr_pos(user_name, time_out=20, type='friend'):
         raise FileNotFoundError(f"User image does not exist: {user_name}")
 
     sleep(0.7)
-    while not img_is_visible(user_name, 30, 26, 65, 95):
+    while not img_is_visible(user_name, 30, 26, 65, 95, confidence=0.9):
         if time() - start_time > time_out:
             raise TimeoutError(
                 f"User '{user_name}' not found after {time_out} seconds.")
@@ -284,35 +284,44 @@ def auto_gift_obj_99(user_name, item_path=None, quantity=50, bag_limit=100,
     def gifting(first_iter=False):
         nonlocal user_pos, item_pos, count
         click_relative(73, 51)  # send gift
-        while not img_is_visible('asset/images/social/send_gift.png'):
-            sleep(0.1)
+
+        if not waiting_for_image('asset/images/social/send_gift.png'):
+            return False
+
         click_relative(*GIFT_POS[type])
 
-        while not img_is_visible('asset/images/social/send_gift.png'):
-            sleep(0.1)
+        if not waiting_for_image('asset/images/social/send_gift.png'):
+            return False
 
         if first_iter:
             user_pos = find_usr_pos(user_name)
             sleep(0.1)
 
         click_relative(*user_pos, converted=True)
-        while not img_is_visible('asset/images/social/send_gift.png'):
-            sleep(0.1)
+
+        if not waiting_for_image('asset/images/social/send_gift.png'):
+            return False
+
         click_relative(55, 50)  # attach
 
+        # sometimes the function doesn't work properly
         # if first_iter:
         #     filtered_bag('collectible')
 
         sleep(0.1)
+
         item_pos = get_img_coordinate(
             item_path, confidence=0.96)
         swipe_count = 0
+
         while not item_pos:
             if swipe_count == 3:
                 return False
+
             swipe(SWIPE_START, SWIPE_END)
             item_pos = get_img_coordinate(
                 item_path, confidence=0.95)
+
             swipe_count += 1
             sleep(0.3)
 
@@ -329,20 +338,16 @@ def auto_gift_obj_99(user_name, item_path=None, quantity=50, bag_limit=100,
         click_relative(29, 44, duration=0.1)  # confirm
         click_relative(49, 91, duration=0.15)  # send gift
 
-        start_time = time()
-        while not img_is_visible('asset/images/social/ok.png'):
-            if start_time > 5:
-                return False
-            sleep(0.1)
-        print('before present')
-        print(start_time)
+        if not waiting_for_image('asset/images/social/ok.png', time_out=5):
+            return False
+
         count += 1
-        start_time = time()
-        while not img_is_visible('asset/images/social/present.png', 55, 77, 59, 84):
-            if start_time > 5:
-                return False
-            click_relative(49, 87)  # ok
-            sleep(0.1)
+
+        if not waiting_for_image('asset/images/social/present.png', 55, 77, 59, 84,
+                                 time_out=5, on_wait=lambda: click_relative(49, 87)):
+            print("Failed to find present image after sending gift.")
+            return False
+
         return True  # successful gift
 
     type = find_closest_match(type, GIFT_POS.keys())
