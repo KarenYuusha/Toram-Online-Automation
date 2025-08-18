@@ -103,15 +103,18 @@ def find_usr_pos(user_name, time_out=20, type='friend'):
         raise FileNotFoundError(f"User image does not exist: {user_name}")
 
     sleep(0.7)
-    while not img_is_visible(user_name, 30, 26, 65, 95, confidence=0.9):
-        if time() - start_time > time_out:
-            raise TimeoutError(
-                f"User '{user_name}' not found after {time_out} seconds.")
-        if not img_is_visible('asset/images/social/send_gift_pos.png'):
-            start_time = time()
-            click_relative(*GIFT_POS[type])
-        swipe((24, 89), (24, 35))
-        sleep(0.3)
+    try:
+        while not img_is_visible(user_name, 30, 26, 65, 95, confidence=0.9):
+            if time() - start_time > time_out:
+                raise TimeoutError(
+                    f"User '{user_name}' not found after {time_out} seconds.")
+            if not img_is_visible('asset/images/social/send_gift_pos.png'):
+                start_time = time()
+                click_relative(*GIFT_POS[type])
+            swipe((24, 89), (24, 35))
+            sleep(0.3)
+    except gui.FailSafeException:
+        raise KeyError
 
     return get_img_coordinate(user_name, confidence=0.9)
 

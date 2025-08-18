@@ -221,6 +221,9 @@ def swipe(start, end, duration=0.75) -> None:
         gui.mouseDown()
         gui.moveTo(end_x, end_y, duration=duration)
         gui.mouseUp()
+    except gui.FailSafeException:
+        print("Failsafe triggered")
+        raise
 
     except Exception as e:
         print(f"Error occurred while performing swipe: {e}")
