@@ -13,7 +13,7 @@ def is_main_screen() -> bool:
     """
     from PIL import Image
 
-    return image_matching(Image.open('./asset/images/menu_navigation/orb_shop.png'), grab_image_in(90, 87, 93.7, 96), remove_bg=True)
+    return image_matching(Image.open('./asset/images/menu_navigation/orb_shop.png'), grab_image_in(91, 89, 93, 93), remove_bg=False)
 
 
 def to_main() -> None:
