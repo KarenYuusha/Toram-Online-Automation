@@ -1,5 +1,6 @@
 import re
 from difflib import get_close_matches
+from collections import defaultdict
 from datetime import datetime
 import os
 
@@ -42,19 +43,37 @@ def find_closest_match(input_text, correct_names, verbose=False):
         return input_text
 
 
-def log_stack(user_name, stack_count, item_name='summer shell', log_file="gift.log", max_size_mb=5):
+def log_stack(user_name, stack_count, item_name='summer shell', log_file="log/gift.log", max_size_mb=5):
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_entry = f"User: {user_name} | {item_name} | Stack: {stack_count} | {now}\n"
 
+    os.makedirs(os.path.dirname(log_file), exist_ok=True)
+
     # Check file size before writing
     if os.path.exists(log_file) and os.path.getsize(log_file) > max_size_mb * 1024 * 1024:
-        os.rename(log_file, log_file.replace(
-            ".log", f"_{now.replace(':','-')}.log"))
+        rotated_name = log_file.replace(".log", f"_{now.replace(':','-')}.log")
+        os.rename(log_file, rotated_name)
 
+    # Create or append log
     with open(log_file, "a", encoding="utf-8") as f:
         f.write(log_entry)
 
 
-def add_to_log(user_name, stack_count, item_name='summer shell', log_file='gift.log'):
+def add_to_log(user_name, stack_count, item_name='summer shell', log_file='log/gift.log'):
     user_name = os.path.splitext(os.path.basename(user_name))[0]
     log_stack(user_name, stack_count, item_name, log_file)
+
+
+def summarize_log(log_file='log/gift.log'):
+    summary = defaultdict(lambda: defaultdict(int))
+
+    with open(log_file, "r", encoding="utf-8") as f:
+        for line in f:
+            parts = line.strip().split(" | ")
+            if len(parts) >= 3:
+                user = parts[0].split("User: ")[1].strip()
+                item = parts[1].strip()
+                stack = int(parts[2].split("Stack: ")[1].strip())
+                summary[user][item] += stack
+
+    return summary
